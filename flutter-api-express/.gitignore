@@ -1,0 +1,15 @@
+node_modules
+# Keep environment variables out of version control
+.env
+
+# Firebase service account key — never commit this, it's a live credential
+firebase-service-account*.json
+
+/generated/prisma
+
+# Uploaded movie posters/trailers (local dev storage)
+/uploads/posters/*
+/uploads/trailers/*
+!/uploads/posters/.gitkeep
+!/uploads/trailers/.gitkeep
+*firebase-adminsdk*.json

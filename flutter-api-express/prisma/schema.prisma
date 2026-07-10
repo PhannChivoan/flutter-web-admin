@@ -1,0 +1,346 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+// Migrations command
+//npx prisma migrate dev --name init
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Movie {
+  movie_id       Int          @id @default(autoincrement())
+  title          String
+  content_rating String?
+  duration_min   Int?
+  star_rating    Decimal?     @db.Decimal(3, 1)
+  status         MovieStatus  @default(NOW_SHOWING)
+  release_date   DateTime?    @db.Date
+  synopsis       String?      @db.Text
+  poster_url     String?
+  trailer_url    String?
+  genre_id       Int?
+
+  genre          Genre?       @relation(fields: [genre_id], references: [genre_id])
+  cast           Cast[]
+  showtimes      Showtime[]
+  watchlist      Watchlist[]
+  notifications  Notification[]
+
+  @@map("tbl_movies")
+}
+
+model Genre {
+  genre_id   Int     @id @default(autoincrement())
+  genre_name String  @unique
+
+  movies     Movie[]
+
+  @@map("tbl_genres")
+}
+
+model Cast {
+  cast_id        Int    @id @default(autoincrement())
+  movie_id       Int
+  actor_id       Int
+  character_name String
+  position       Int
+
+  movie          Movie  @relation(fields: [movie_id], references: [movie_id])
+  actor          Actor  @relation(fields: [actor_id], references: [actor_id])
+
+  @@unique([movie_id, actor_id])
+  @@map("tbl_cast")
+}
+
+model Actor {
+  actor_id  Int     @id @default(autoincrement())
+  name      String
+  photo_url String?
+  bio       String? @db.Text
+
+  cast      Cast[]
+
+  @@map("tbl_actors")
+}
+
+model Theater {
+  theater_id     Int       @id @default(autoincrement())
+  theater_name   String
+  address        String
+  city           String
+  state          String
+  zip            String
+  distance_miles Decimal?  @db.Decimal(5, 2)
+  star_rating    Decimal?  @db.Decimal(3, 1)
+  amenity_id     Int?
+  latitude       Decimal?  @db.Decimal(9, 6)
+  longitude      Decimal?  @db.Decimal(9, 6)
+  image_url      String?
+  phone          String?
+  description    String?   @db.Text
+
+  amenity        Amenity?  @relation(fields: [amenity_id], references: [amenity_id])
+  screens        Screen[]
+
+  @@map("tbl_theaters")
+}
+
+model Amenity {
+  amenity_id   Int       @id @default(autoincrement())
+  amenity_name String    @unique
+
+  theaters     Theater[]
+
+  @@map("tbl_amenities")
+}
+
+model Screen {
+  screen_id   Int          @id @default(autoincrement())
+  theater_id  Int
+  screen_name String
+  format_type ScreenFormat @default(STANDARD)
+  total_seats Int
+
+  theater     Theater      @relation(fields: [theater_id], references: [theater_id])
+  showtimes   Showtime[]
+
+  @@map("tbl_screens")
+}
+
+model Showtime {
+  showtime_id     Int            @id @default(autoincrement())
+  movie_id        Int
+  screen_id       Int
+  show_date       DateTime       @db.Date
+  show_time       DateTime       @db.Time
+  availability    ShowtimeStatus @default(AVAILABLE)
+  seats_remaining Int
+  ticket_price    Decimal        @default(12.50) @db.Decimal(6, 2)
+
+  movie           Movie          @relation(fields: [movie_id], references: [movie_id])
+  screen          Screen         @relation(fields: [screen_id], references: [screen_id])
+  bookings        Booking[]
+  booking_seats   BookingSeat[]
+
+  @@map("tbl_showtimes")
+}
+
+model LoyaltyTier {
+  tier_id      Int          @id @default(autoincrement())
+  tier_name    String
+  min_points   Int
+  next_tier_id Int?
+
+  next_tier    LoyaltyTier?  @relation("TierProgression", fields: [next_tier_id], references: [tier_id])
+  prev_tier    LoyaltyTier[] @relation("TierProgression")
+  users        User[]
+
+  @@map("tbl_loyalty_tiers")
+}
+
+model User {
+  user_id         Int             @id @default(autoincrement())
+  full_name       String
+  email           String          @unique
+  password_hash   String
+  phone           String?
+  avatar_url      String?
+  role            UserRole        @default(CUSTOMER)
+  loyalty_tier_id Int
+  loyalty_points  Int             @default(0)
+  created_at      DateTime        @default(now())
+
+  loyalty_tier    LoyaltyTier     @relation(fields: [loyalty_tier_id], references: [tier_id])
+  payment_methods PaymentMethod[]
+  bookings        Booking[]
+  watchlist       Watchlist[]
+  search_history  SearchHistory[]
+  user_settings   UserSetting[]
+  refresh_tokens  RefreshToken[]
+  notifications   Notification[]
+
+  @@map("tbl_users")
+}
+
+model PaymentMethod {
+  payment_id   Int         @id @default(autoincrement())
+  user_id      Int
+  payment_type PaymentType
+  card_last4   String?     @db.Char(4)
+  is_default   Boolean     @default(false)
+
+  user         User        @relation(fields: [user_id], references: [user_id])
+  bookings     Booking[]
+
+  @@map("tbl_payment_methods")
+}
+
+model Booking {
+  booking_id      Int           @id @default(autoincrement())
+  order_number    String        @unique
+  qr_code         String        @unique @default(cuid())
+  user_id         Int
+  showtime_id     Int
+  payment_id      Int
+  ticket_qty      Int
+  ticket_subtotal Decimal       @db.Decimal(10, 2)
+  convenience_fee Decimal       @db.Decimal(10, 2)
+  tax             Decimal       @db.Decimal(10, 2)
+  total           Decimal       @db.Decimal(10, 2)
+  promo_code      String?
+  booked_at       DateTime      @default(now())
+
+  user            User          @relation(fields: [user_id], references: [user_id])
+  showtime        Showtime      @relation(fields: [showtime_id], references: [showtime_id])
+  payment_method  PaymentMethod @relation(fields: [payment_id], references: [payment_id])
+  seats           BookingSeat[]
+  notifications   Notification[]
+
+  @@map("tbl_bookings")
+}
+
+model Notification {
+  notification_id Int      @id @default(autoincrement())
+  user_id         Int
+  type            NotificationType
+  title           String
+  body            String?
+  movie_id        Int?
+  booking_id      Int?
+  is_read         Boolean  @default(false)
+  created_at      DateTime @default(now())
+
+  user            User     @relation(fields: [user_id], references: [user_id])
+  movie           Movie?   @relation(fields: [movie_id], references: [movie_id])
+  booking         Booking? @relation(fields: [booking_id], references: [booking_id])
+
+  @@map("tbl_notifications")
+}
+
+model BookingSeat {
+  seat_id     Int      @id @default(autoincrement())
+  booking_id  Int
+  showtime_id Int
+  seat_label  String
+
+  booking     Booking  @relation(fields: [booking_id], references: [booking_id])
+  showtime    Showtime @relation(fields: [showtime_id], references: [showtime_id])
+
+  @@unique([showtime_id, seat_label])
+  @@map("tbl_booking_seats")
+}
+
+model Watchlist {
+  user_id  Int
+  movie_id Int
+  saved_at DateTime @default(now())
+
+  user     User     @relation(fields: [user_id], references: [user_id])
+  movie    Movie    @relation(fields: [movie_id], references: [movie_id])
+
+  @@id([user_id, movie_id])
+  @@map("tbl_watchlist")
+}
+
+model SearchHistory {
+  search_id   Int        @id @default(autoincrement())
+  user_id     Int
+  search_type SearchType
+  entry       String
+  category    String?
+  searched_at DateTime   @default(now())
+
+  user        User       @relation(fields: [user_id], references: [user_id])
+
+  @@map("tbl_search_history")
+}
+
+model AppScreen {
+  screen_id     Int     @id @default(autoincrement())
+  screen_name   String
+  route         String
+  nav_tab       String?
+  auth_required Boolean @default(true)
+
+  @@map("tbl_app_screens")
+}
+
+model Setting {
+  setting_id    Int           @id @default(autoincrement())
+  section       String
+  setting_name  String
+  default_value String?
+
+  user_settings UserSetting[]
+
+  @@map("tbl_settings")
+}
+
+model UserSetting {
+  user_id       Int
+  setting_id    Int
+  current_value String?
+
+  user          User    @relation(fields: [user_id], references: [user_id])
+  setting       Setting @relation(fields: [setting_id], references: [setting_id])
+
+  @@id([user_id, setting_id])
+  @@map("tbl_user_settings")
+}
+
+enum MovieStatus {
+  NOW_SHOWING
+  COMING_SOON
+}
+
+enum ScreenFormat {
+  STANDARD
+  IMAX
+  IMAX_LASER
+  DOLBY_CINEMA
+}
+
+enum ShowtimeStatus {
+  AVAILABLE
+  FILLING_FAST
+  SOLD_OUT
+}
+
+enum PaymentType {
+  CREDIT_CARD
+  DIGITAL_WALLET
+}
+
+enum SearchType {
+  RECENT_SEARCH
+  TRENDING
+  GENRE_FILTER
+}
+
+enum UserRole {
+  ADMIN
+  CUSTOMER
+}
+
+enum NotificationType {
+  BOOKING
+  MOVIE
+}
+
+model RefreshToken {
+  token_id   Int      @id @default(autoincrement())
+  token      String   @unique
+  user_id    Int
+  expires_at DateTime
+  created_at DateTime @default(now())
+
+  user       User     @relation(fields: [user_id], references: [user_id])
+
+  @@map("tbl_refresh_tokens")
+}
