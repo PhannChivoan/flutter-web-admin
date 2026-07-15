@@ -1,0 +1,16 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/admin/layout,_N_T_/admin/theaters/layout,_N_T_/admin/theaters/page,_N_T_/admin/theaters"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/admin/theaters/__PAGE__",
+    "/admin/theaters",
+    "/admin",
+    "/_index",
+    "/_head"
+  ]
+}

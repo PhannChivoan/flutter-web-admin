@@ -1,0 +1,258 @@
+{
+  "version": 3,
+  "pages404": true,
+  "appType": "app",
+  "caseSensitive": false,
+  "basePath": "",
+  "redirects": [
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "internal": true,
+      "priority": true,
+      "statusCode": 308,
+      "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+    }
+  ],
+  "headers": [],
+  "onMatchHeaders": [],
+  "rewrites": {
+    "beforeFiles": [],
+    "afterFiles": [],
+    "fallback": []
+  },
+  "dynamicRoutes": [
+    {
+      "page": "/admin/actors/[id]/edit",
+      "regex": "^/admin/actors/([^/]+?)/edit(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/actors/(?<nxtPid>[^/]+?)/edit(?:/)?$"
+    },
+    {
+      "page": "/admin/amenities/[id]/edit",
+      "regex": "^/admin/amenities/([^/]+?)/edit(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/amenities/(?<nxtPid>[^/]+?)/edit(?:/)?$"
+    },
+    {
+      "page": "/admin/bookings/[id]",
+      "regex": "^/admin/bookings/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/bookings/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/admin/branches/[id]/edit",
+      "regex": "^/admin/branches/([^/]+?)/edit(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/branches/(?<nxtPid>[^/]+?)/edit(?:/)?$"
+    },
+    {
+      "page": "/admin/branches/[id]/schedule",
+      "regex": "^/admin/branches/([^/]+?)/schedule(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/branches/(?<nxtPid>[^/]+?)/schedule(?:/)?$"
+    },
+    {
+      "page": "/admin/branches/[id]/schedule/new",
+      "regex": "^/admin/branches/([^/]+?)/schedule/new(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/branches/(?<nxtPid>[^/]+?)/schedule/new(?:/)?$"
+    },
+    {
+      "page": "/admin/branches/[id]/screens/new",
+      "regex": "^/admin/branches/([^/]+?)/screens/new(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/branches/(?<nxtPid>[^/]+?)/screens/new(?:/)?$"
+    },
+    {
+      "page": "/admin/genres/[id]/edit",
+      "regex": "^/admin/genres/([^/]+?)/edit(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/genres/(?<nxtPid>[^/]+?)/edit(?:/)?$"
+    },
+    {
+      "page": "/admin/loyalty-tiers/[id]/edit",
+      "regex": "^/admin/loyalty\\-tiers/([^/]+?)/edit(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/loyalty\\-tiers/(?<nxtPid>[^/]+?)/edit(?:/)?$"
+    },
+    {
+      "page": "/admin/movies/[id]/edit",
+      "regex": "^/admin/movies/([^/]+?)/edit(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/movies/(?<nxtPid>[^/]+?)/edit(?:/)?$"
+    }
+  ],
+  "staticRoutes": [
+    {
+      "page": "/",
+      "regex": "^/(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/(?:/)?$"
+    },
+    {
+      "page": "/_global-error",
+      "regex": "^/_global\\-error(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_global\\-error(?:/)?$"
+    },
+    {
+      "page": "/_not-found",
+      "regex": "^/_not\\-found(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_not\\-found(?:/)?$"
+    },
+    {
+      "page": "/admin",
+      "regex": "^/admin(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin(?:/)?$"
+    },
+    {
+      "page": "/admin/actors",
+      "regex": "^/admin/actors(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/actors(?:/)?$"
+    },
+    {
+      "page": "/admin/actors/new",
+      "regex": "^/admin/actors/new(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/actors/new(?:/)?$"
+    },
+    {
+      "page": "/admin/amenities",
+      "regex": "^/admin/amenities(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/amenities(?:/)?$"
+    },
+    {
+      "page": "/admin/amenities/new",
+      "regex": "^/admin/amenities/new(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/amenities/new(?:/)?$"
+    },
+    {
+      "page": "/admin/analytics",
+      "regex": "^/admin/analytics(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/analytics(?:/)?$"
+    },
+    {
+      "page": "/admin/bookings",
+      "regex": "^/admin/bookings(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/bookings(?:/)?$"
+    },
+    {
+      "page": "/admin/branches",
+      "regex": "^/admin/branches(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/branches(?:/)?$"
+    },
+    {
+      "page": "/admin/branches/new",
+      "regex": "^/admin/branches/new(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/branches/new(?:/)?$"
+    },
+    {
+      "page": "/admin/genres",
+      "regex": "^/admin/genres(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/genres(?:/)?$"
+    },
+    {
+      "page": "/admin/genres/new",
+      "regex": "^/admin/genres/new(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/genres/new(?:/)?$"
+    },
+    {
+      "page": "/admin/loyalty-tiers",
+      "regex": "^/admin/loyalty\\-tiers(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/loyalty\\-tiers(?:/)?$"
+    },
+    {
+      "page": "/admin/loyalty-tiers/new",
+      "regex": "^/admin/loyalty\\-tiers/new(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/loyalty\\-tiers/new(?:/)?$"
+    },
+    {
+      "page": "/admin/movies",
+      "regex": "^/admin/movies(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/movies(?:/)?$"
+    },
+    {
+      "page": "/admin/movies/new",
+      "regex": "^/admin/movies/new(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/movies/new(?:/)?$"
+    },
+    {
+      "page": "/admin/settings",
+      "regex": "^/admin/settings(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/settings(?:/)?$"
+    },
+    {
+      "page": "/admin/theaters",
+      "regex": "^/admin/theaters(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/theaters(?:/)?$"
+    },
+    {
+      "page": "/admin/users",
+      "regex": "^/admin/users(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/users(?:/)?$"
+    },
+    {
+      "page": "/favicon.ico",
+      "regex": "^/favicon\\.ico(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/favicon\\.ico(?:/)?$"
+    }
+  ],
+  "dataRoutes": [],
+  "rsc": {
+    "header": "rsc",
+    "varyHeader": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+    "prefetchHeader": "next-router-prefetch",
+    "didPostponeHeader": "x-nextjs-postponed",
+    "contentTypeHeader": "text/x-component",
+    "suffix": ".rsc",
+    "prefetchSegmentHeader": "next-router-segment-prefetch",
+    "prefetchSegmentSuffix": ".segment.rsc",
+    "prefetchSegmentDirSuffix": ".segments",
+    "clientParamParsing": false,
+    "dynamicRSCPrerender": false
+  },
+  "rewriteHeaders": {
+    "pathHeader": "x-nextjs-rewritten-path",
+    "queryHeader": "x-nextjs-rewritten-query"
+  }
+}

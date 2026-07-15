@@ -1,0 +1,17 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/admin/layout,_N_T_/admin/movies/layout,_N_T_/admin/movies/new/layout,_N_T_/admin/movies/new/page,_N_T_/admin/movies/new"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/admin/movies/new/__PAGE__",
+    "/admin/movies/new",
+    "/admin/movies",
+    "/admin",
+    "/_index",
+    "/_head"
+  ]
+}
