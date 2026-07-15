@@ -1,0 +1,47 @@
+body {
+    /* background-color: theme('colors.background'); */
+    background-color: white;
+    color: theme('colors.on-background');
+}
+.glass-panel {
+    background: rgba(26, 26, 26, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.input-glow:focus-within {
+    border-color: theme('colors.primary-container');
+    box-shadow: 0 0 15px rgba(229, 9, 20, 0.2);
+}
+.btn-primary {
+    background-color: theme('colors.primary-container');
+    color: white;
+    transition: all 0.3s ease;
+}
+.btn-primary:hover {
+    background-color: theme('colors.inverse-primary');
+    box-shadow: 0 0 20px rgba(229, 9, 20, 0.4);
+    transform: translateY(-2px);
+}
+
+/* Subtle animated background gradient */
+.bg-cinematic {
+    background: radial-gradient(circle at 50% 50%, #1a0506 0%, #080808 100%);
+    position: relative;
+    overflow: hidden;
+}
+.bg-cinematic::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(229, 9, 20, 0.03) 0%, transparent 60%);
+    animation: pulse 15s infinite alternate;
+    z-index: 0;
+}
+@keyframes pulse {
+    0% { transform: scale(1) translate(0, 0); }
+    100% { transform: scale(1.1) translate(2%, 2%); }
+}
